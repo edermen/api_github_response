@@ -29,8 +29,12 @@ class GitHubTest
 			 puts "Getting the data from ===>  #{BASE_URI}/#{path}"
 			 @request = JSON.parse(RestClient.get("#{BASE_URI}/#{path}"))
 			 puts JSON.pretty_unparse(@request)
+     # if resource not found  
 		 rescue  RestClient::ResourceNotFound
 			 puts 'Not found'
+     # if incorrect JSON request  
+     rescue JSON::ParserError
+       puts 'Unexpected error >> JSON::ParserError'
 		 end
 	end
 
