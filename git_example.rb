@@ -1,18 +1,27 @@
 class GitHubTest
 
   require 'rest-client'
+  #github API basic URI
+	BASE_URI= 'https://api.github.com'
 
-		 BASE_URI= 'https://api.github.com'
 	# Get the user name
 	def user_name
 		puts "Enter user name"
 		@user = gets.chomp
+    unless (@user =~ /^(?![-]{1})[a-z0-9-]*[a-z]{1}$/)
+      puts "Incorrect name! Plese, try againe!"
+      self.user_name
+    end
 	end
 
 	# Get the repo name
 	def repo_name
 		puts "Enter name of repository"
-		@repo = gets.chomp
+    @repo = gets.chomp.gsub(/[-]{2,}/, '-')
+    unless (@repo =~ /^(?![\s])+[a-z0-9_-]{1,}$/)
+      puts "Incorrect repository name. Plese check it" 
+      self.repo_name
+    end
 	end
 
 	def valid(path = nil)
